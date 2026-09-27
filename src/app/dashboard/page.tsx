@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { ReadinessProgress, AnimatedGrid, WaitingState } from "@/components/DashboardClient";
 import { RevealBanner } from "@/components/RevealBanner";
+import { StatsRow } from "@/components/StatsRow";
 import { buildBoard, getParticipants } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +29,7 @@ export default async function DashboardPage() {
           <WaitingState waitingOn={board.waitingOn} />
         ) : (
           <>
+            <StatsRow verdicts={board.verdicts} listingsById={board.listingsById} />
             <RevealBanner verdicts={board.verdicts} listingsById={board.listingsById} />
             <AnimatedGrid
               shortlistIds={board.shortlistIds}

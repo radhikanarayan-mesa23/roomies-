@@ -89,8 +89,8 @@ export function ListingCard({
           >
             <div className="flex items-center gap-2 text-sm">
               <Avatar name={p.participantName} />
-              <span className="w-14 shrink-0 font-medium">{p.participantName}</span>
-              <span className="w-10 shrink-0 font-mono text-muted">
+              <span className="font-medium">{p.participantName}</span>
+              <span className="font-mono text-muted">
                 {p.score != null ? (
                   <>
                     <ScoreNumber value={p.score} />/5
@@ -99,31 +99,24 @@ export function ListingCard({
                   "—"
                 )}
               </span>
+            </div>
+            <div className="mt-1.5 space-y-1">
               {p.dealbreakerGaps.length === 0 ? (
-                <span className="flex items-center gap-1.5 text-emerald">
-                  <WORKS_ICON size={15} className="shrink-0" /> Works — every preference met
+                <span className="flex items-start gap-1.5 text-sm text-emerald">
+                  <WORKS_ICON size={15} className="mt-0.5 shrink-0" /> Works — every preference met
                 </span>
               ) : (
-                <GapLine text={p.dealbreakerGaps[0]} />
+                p.dealbreakerGaps.map((g, i) => <GapLine key={i} text={g} />)
               )}
             </div>
-            {p.dealbreakerGaps.length > 1 && (
-              <ul className="mt-1.5 space-y-1 pl-[4.7rem]">
-                {p.dealbreakerGaps.slice(1).map((g, i) => (
-                  <li key={i}>
-                    <GapLine text={g} />
-                  </li>
-                ))}
-              </ul>
-            )}
             {p.givesUp.length > 0 && (
-              <p className="mt-1.5 flex items-start gap-1.5 pl-[4.7rem] text-sm text-amber">
+              <p className="mt-1.5 flex items-start gap-1.5 text-sm text-amber">
                 <GIVES_UP_ICON size={14} className="mt-0.5 shrink-0" />
                 Gives up: {p.givesUp.map((g) => `${g.label} (${g.weight})`).join(", ")}
               </p>
             )}
             {p.notConfirmed.length > 0 && (
-              <p className="mt-1.5 flex items-start gap-1.5 pl-[4.7rem] text-sm text-zinc">
+              <p className="mt-1.5 flex items-start gap-1.5 text-sm text-zinc">
                 <NOT_CONFIRMED_ICON size={14} className="mt-0.5 shrink-0" />
                 Not confirmed: {p.notConfirmed.join(", ")}
               </p>

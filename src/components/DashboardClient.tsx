@@ -30,7 +30,7 @@ export function AvatarChips({ participants }: { participants: Participant[] }) {
 
 export function WaitingState({ waitingOn }: { waitingOn: string[] }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-10 text-center">
+    <div className="glass-card p-10 text-center">
       <h2 className="text-lg font-semibold">Waiting on {waitingOn.join(", ")}</h2>
       <p className="mt-2 text-sm text-muted">
         Verdicts show up once all three forms are in — partial data would just be
@@ -70,7 +70,7 @@ export function AnimatedGrid({
 
   if (verdicts.length === 0) {
     return (
-      <div className="rounded-2xl border border-border bg-card p-10 text-center">
+      <div className="glass-card p-10 text-center">
         <h2 className="text-lg font-semibold">No listings yet</h2>
         <p className="mt-2 text-sm text-muted">
           Share one to the Telegram bot or the /add page to get started.
@@ -86,7 +86,7 @@ export function AnimatedGrid({
           Shortlist
         </h2>
         {shortlisted.length === 0 ? (
-          <div className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted">
+          <div className="glass-card p-8 text-center text-sm text-muted">
             Nothing works for at least 2 people yet — check the gaps below and see what
             you might adjust.
           </div>

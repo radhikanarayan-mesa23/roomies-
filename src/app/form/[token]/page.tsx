@@ -15,7 +15,7 @@ export default async function FormPage({
       <Header />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
         {!result ? (
-          <div className="rounded-2xl border border-border bg-card p-8 text-center">
+          <div className="glass-card p-8 text-center">
             <h1 className="text-lg font-semibold">Link not recognized</h1>
             <p className="mt-2 text-sm text-muted">
               Double-check the link your flatmate sent you, or ask them to resend it.

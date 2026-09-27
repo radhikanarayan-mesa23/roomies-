@@ -41,7 +41,7 @@ export default function Home() {
           {STEPS.map((step, i) => (
             <div
               key={step.title}
-              className="rounded-2xl border border-border bg-card p-6"
+              className="glass-card p-6"
             >
               <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent/15 text-sm font-semibold text-accent">
                 {i + 1}

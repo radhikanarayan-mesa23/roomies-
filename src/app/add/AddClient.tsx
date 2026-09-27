@@ -49,7 +49,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
 
   if (stage.step === "saved") {
     return (
-      <div className="rounded-2xl border border-border bg-card p-8 text-center">
+      <div className="glass-card p-8 text-center">
         <h1 className="text-lg font-semibold">Saved ✓</h1>
         <p className="mt-2 text-sm text-muted">
           It&apos;ll show up on the{" "}
@@ -74,7 +74,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
 
   if (stage.step === "duplicate") {
     return (
-      <div className="rounded-2xl border border-border bg-card p-8 text-center">
+      <div className="glass-card p-8 text-center">
         <h1 className="text-lg font-semibold">Already added</h1>
         <p className="mt-2 text-sm text-muted">
           This exact listing text is already on the dashboard.
@@ -91,7 +91,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
     return (
       <div className="space-y-6">
         <h1 className="text-xl font-semibold">Review before saving</h1>
-        <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="glass-card p-5">
           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
             <PreviewField label="Locality" value={s.normalized_locality} missing={stage.missingFields.includes("normalized locality")} />
             <PreviewField label="Rent" value={s.monthly_rent ? `₹${s.monthly_rent}` : null} missing={stage.missingFields.includes("monthly rent")} />

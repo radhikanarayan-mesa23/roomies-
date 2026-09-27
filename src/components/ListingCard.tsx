@@ -48,9 +48,7 @@ export function ListingCard({
 
   return (
     <div
-      className={`listing-card rounded-2xl border border-border bg-card p-5 ${
-        large ? "sm:p-6" : ""
-      }`}
+      className={`listing-card glass-card p-5 ${large ? "sm:p-6" : ""}`}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>

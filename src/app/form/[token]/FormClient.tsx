@@ -119,7 +119,7 @@ export function FormClient({
 
   if (done) {
     return (
-      <div className="rounded-2xl border border-border bg-card p-8 text-center">
+      <div className="glass-card p-8 text-center">
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald/15 text-emerald">
           ✓
         </div>
@@ -320,7 +320,7 @@ export function FormClient({
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
+    <div className="glass-card p-6">
       <h2 className="mb-5 text-sm font-semibold text-foreground/90">{title}</h2>
       <div className="space-y-5">{children}</div>
     </div>

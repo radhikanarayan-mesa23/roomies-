@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import type { Listing } from "@/lib/types";
 import type { evaluateListing } from "@/lib/matching";
+import { Avatar } from "./Avatar";
+import { GapIcon, WORKS_ICON, NOT_CONFIRMED_ICON, GIVES_UP_ICON } from "@/lib/dealbreakerIcons";
 
 type Verdict = ReturnType<typeof evaluateListing>;
 
@@ -48,7 +50,7 @@ export function ListingCard({
 
   return (
     <div
-      className={`listing-card glass-card p-5 ${large ? "card-ribbon sm:p-6" : ""}`}
+      className={`listing-card glass-card group p-5 transition-transform hover:-translate-y-1 ${large ? "card-ribbon sm:p-6" : ""}`}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
@@ -72,11 +74,15 @@ export function ListingCard({
 
       <SourceBadge listing={listing} />
 
-      <div className="mt-4 space-y-3 divide-y divide-border">
+      <div className="mt-4 space-y-1 divide-y divide-border">
         {verdict.perPerson.map((p) => (
-          <div key={p.participantId} className="pt-3 first:pt-0">
+          <div
+            key={p.participantId}
+            className="-mx-2 rounded-xl px-2 py-3 transition-colors first:pt-2 hover:bg-white/50"
+          >
             <div className="flex items-center gap-2 text-sm">
-              <span className="w-16 shrink-0 font-medium">{p.participantName}</span>
+              <Avatar name={p.participantName} />
+              <span className="w-14 shrink-0 font-medium">{p.participantName}</span>
               <span className="w-10 shrink-0 font-mono text-muted">
                 {p.score != null ? (
                   <>
@@ -87,32 +93,47 @@ export function ListingCard({
                 )}
               </span>
               {p.dealbreakerGaps.length === 0 ? (
-                <span className="text-emerald">✅ Works — every preference met</span>
+                <span className="flex items-center gap-1.5 text-emerald">
+                  <WORKS_ICON size={15} className="shrink-0" /> Works — every preference met
+                </span>
               ) : (
-                <span className="text-rose">❌ {p.dealbreakerGaps[0]}</span>
+                <GapLine text={p.dealbreakerGaps[0]} />
               )}
             </div>
             {p.dealbreakerGaps.length > 1 && (
-              <ul className="mt-1 space-y-0.5 pl-[4.7rem] text-sm text-rose">
+              <ul className="mt-1.5 space-y-1 pl-[4.7rem]">
                 {p.dealbreakerGaps.slice(1).map((g, i) => (
-                  <li key={i}>❌ {g}</li>
+                  <li key={i}>
+                    <GapLine text={g} />
+                  </li>
                 ))}
               </ul>
             )}
             {p.givesUp.length > 0 && (
-              <p className="mt-1 pl-[4.7rem] text-sm text-amber">
-                ⚠️ Gives up: {p.givesUp.map((g) => `${g.label} (${g.weight})`).join(", ")}
+              <p className="mt-1.5 flex items-start gap-1.5 pl-[4.7rem] text-sm text-amber">
+                <GIVES_UP_ICON size={14} className="mt-0.5 shrink-0" />
+                Gives up: {p.givesUp.map((g) => `${g.label} (${g.weight})`).join(", ")}
               </p>
             )}
             {p.notConfirmed.length > 0 && (
-              <p className="mt-1 pl-[4.7rem] text-sm text-zinc">
-                ◌ Not confirmed: {p.notConfirmed.join(", ")}
+              <p className="mt-1.5 flex items-start gap-1.5 pl-[4.7rem] text-sm text-zinc">
+                <NOT_CONFIRMED_ICON size={14} className="mt-0.5 shrink-0" />
+                Not confirmed: {p.notConfirmed.join(", ")}
               </p>
             )}
           </div>
         ))}
       </div>
     </div>
+  );
+}
+
+function GapLine({ text }: { text: string }) {
+  return (
+    <span className="flex items-start gap-1.5 text-sm text-rose">
+      <GapIcon text={text} className="mt-0.5 shrink-0" />
+      {text}
+    </span>
   );
 }
 

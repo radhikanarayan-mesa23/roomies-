@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import { submitForm } from "./actions";
+import { FIELD_ICON } from "@/lib/dealbreakerIcons";
 
 const PREDEFINED_PREFS = [
   "Furnished",
@@ -152,7 +154,7 @@ export function FormClient({
       </div>
 
       <Section title="Dealbreakers">
-        <Field label="Max rent share, per person (₹/month)">
+        <Field label="Max rent share, per person (₹/month)" icon={FIELD_ICON.rent}>
           <input
             type="number"
             required
@@ -163,7 +165,7 @@ export function FormClient({
           />
         </Field>
 
-        <Field label="Areas you won't consider">
+        <Field label="Areas you won't consider" icon={FIELD_ICON.noGoAreas}>
           <div className="flex flex-wrap gap-2">
             {noGoAreas.map((area) => (
               <span
@@ -201,7 +203,7 @@ export function FormClient({
         </Field>
 
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Min bathrooms">
+          <Field label="Min bathrooms" icon={FIELD_ICON.bathrooms}>
             <input
               type="number"
               min={0}
@@ -210,7 +212,7 @@ export function FormClient({
               className="input"
             />
           </Field>
-          <Field label="Highest floor you'd accept">
+          <Field label="Highest floor you'd accept" icon={FIELD_ICON.floor}>
             <input
               type="number"
               min={0}
@@ -223,25 +225,33 @@ export function FormClient({
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <Toggle label="Needs a lift" checked={requiresLift} onChange={setRequiresLift} />
+          <Toggle
+            label="Needs a lift"
+            icon={FIELD_ICON.lift}
+            checked={requiresLift}
+            onChange={setRequiresLift}
+          />
           <Toggle
             label="Needs parking"
+            icon={FIELD_ICON.parking}
             checked={requiresParking}
             onChange={setRequiresParking}
           />
           <Toggle
             label="Pet-friendly required"
+            icon={FIELD_ICON.petFriendly}
             checked={requiresPetFriendly}
             onChange={setRequiresPetFriendly}
           />
           <Toggle
             label="Bachelor-friendly required"
+            icon={FIELD_ICON.bachelorFriendly}
             checked={requiresBachelorFriendly}
             onChange={setRequiresBachelorFriendly}
           />
         </div>
 
-        <Field label="Key places (up to 2) — e.g. office, family">
+        <Field label="Key places (up to 2) — e.g. office, family" icon={FIELD_ICON.keyPlace}>
           <div className="space-y-2">
             {keyPlaces.map((kp, i) => (
               <div key={i} className="flex gap-2">
@@ -327,10 +337,21 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  icon: Icon,
+  children,
+}: {
+  label: string;
+  icon?: LucideIcon;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-medium text-muted">{label}</span>
+      <span className="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-muted">
+        {Icon && <Icon size={13} />}
+        {label}
+      </span>
       {children}
     </label>
   );
@@ -338,10 +359,12 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Toggle({
   label,
+  icon: Icon,
   checked,
   onChange,
 }: {
   label: string;
+  icon?: LucideIcon;
   checked: boolean;
   onChange: (v: boolean) => void;
 }) {
@@ -349,11 +372,14 @@ function Toggle({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className={`flex items-center justify-between rounded-xl border px-3 py-2.5 text-left text-sm transition-colors ${
+      className={`flex items-center justify-between rounded-xl border px-3 py-2.5 text-left text-sm transition-all hover:scale-[1.02] ${
         checked ? "border-accent/50 bg-accent/10 text-accent" : "border-border text-foreground/80"
       }`}
     >
-      {label}
+      <span className="flex items-center gap-2">
+        {Icon && <Icon size={15} />}
+        {label}
+      </span>
       <span
         className={`ml-2 h-4 w-4 shrink-0 rounded-full border ${
           checked ? "border-accent bg-accent" : "border-border"

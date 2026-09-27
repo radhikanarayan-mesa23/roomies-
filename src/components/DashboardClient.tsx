@@ -6,6 +6,8 @@ import gsap from "gsap";
 import type { Listing, Participant } from "@/lib/types";
 import type { evaluateListing } from "@/lib/matching";
 import { ListingCard } from "./ListingCard";
+import { Avatar } from "./Avatar";
+import { Check } from "lucide-react";
 
 type Verdict = ReturnType<typeof evaluateListing>;
 
@@ -38,13 +40,15 @@ export function ReadinessProgress({ participants }: { participants: Participant[
           {participants.map((p) => (
             <span
               key={p.id}
-              className={`rounded-full border px-2.5 py-0.5 text-xs ${
+              className={`flex items-center gap-1.5 rounded-full border py-0.5 pl-1 pr-2.5 text-xs transition-transform hover:scale-105 ${
                 p.form_submitted_at
                   ? "border-emerald/30 bg-emerald/10 text-emerald"
-                  : "border-border text-muted"
+                  : "border-border text-muted grayscale"
               }`}
             >
-              {p.form_submitted_at ? "✓" : "…"} {p.name}
+              <Avatar name={p.name} size={16} />
+              {p.name}
+              {p.form_submitted_at && <Check size={12} />}
             </span>
           ))}
         </div>
@@ -89,7 +93,14 @@ export function AnimatedGrid({
       gsap.fromTo(
         cards,
         { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
+        }
       );
     },
     { scope: containerRef }

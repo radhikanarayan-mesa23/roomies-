@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdf3d7;
-  --foreground: #3a2b28;
-  --card: #fffbf2;
-  --border: rgba(67, 48, 46, 0.14);
-  --accent: #43302e;
-  --accent-foreground: #fff1b5;
-  --muted: #8a7368;
-  --buttermilk: #fff1b5;
+  --background: #f5f6fc;
+  --foreground: #1d2050;
+  --card: #ffffff;
+  --border: rgba(49, 61, 158, 0.14);
+  --accent: #313d9e;
+  --accent-foreground: #ffffff;
+  --muted: #6b6f9e;
+  --buttermilk: #ffffff;
   --pastel-blue: #c1dbe8;
-  --burgundy: #43302e;
+  --burgundy: #313d9e;
   --emerald: #0d9488;
   --rose: #c2410c;
   --amber: #b45309;
-  --zinc: #7d6f63;
+  --zinc: #6f739a;
 }
 
 @theme inline {
@@ -48,56 +48,50 @@ body {
   min-height: 100vh;
 }
 
-/* Soft gradient glow mesh behind everything - fixed so it doesn't scroll away. */
+/* Soft blue wash behind everything - fixed so it doesn't scroll away. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 15% -10%, rgba(193, 219, 232, 0.5), transparent 45%),
-    radial-gradient(circle at 90% 5%, rgba(255, 255, 255, 0.6), transparent 40%),
-    radial-gradient(circle at 50% 105%, rgba(67, 48, 46, 0.08), transparent 55%);
+    radial-gradient(circle at 10% -5%, rgba(49, 61, 158, 0.1), transparent 40%),
+    radial-gradient(circle at 100% 10%, rgba(193, 219, 232, 0.5), transparent 45%);
   pointer-events: none;
 }
 
+/* Crisp white card - flat, not glassy, so blue reads clean against white. */
 .glass-card {
   position: relative;
   border-radius: 1.5rem;
-  border: 1px solid rgba(67, 48, 46, 0.1);
-  background: linear-gradient(165deg, rgba(193, 219, 232, 0.65), rgba(255, 255, 255, 0.55) 55%, rgba(193, 219, 232, 0.35));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
-    0 20px 40px -24px rgba(67, 48, 46, 0.25),
-    0 0 0 1px rgba(67, 48, 46, 0.04);
+  border: 1px solid rgba(49, 61, 158, 0.12);
+  background: var(--card);
+  box-shadow: 0 16px 32px -20px rgba(49, 61, 158, 0.3);
 }
 
+/* Solid indigo header block. */
 .glass-header {
-  background: rgba(253, 243, 215, 0.7);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border-bottom: 1px solid rgba(67, 48, 46, 0.1);
+  background: var(--accent);
+  border-bottom: 1px solid rgba(29, 32, 80, 0.3);
 }
 
 .input {
   width: 100%;
   border-radius: 1rem;
-  border: 1px solid rgba(67, 48, 46, 0.14);
-  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(49, 61, 158, 0.16);
+  background: #ffffff;
   color: var(--foreground);
   padding: 0.6rem 0.9rem;
   font-size: 0.875rem;
   outline: none;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .input:hover {
-  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(49, 61, 158, 0.3);
 }
 .input:focus {
-  border-color: var(--pastel-blue);
-  background: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(49, 61, 158, 0.12);
 }
 .input::placeholder {
   color: var(--muted);
@@ -105,21 +99,18 @@ body::before {
 
 .btn-primary {
   border-radius: 9999px;
-  background: linear-gradient(180deg, #55403d, var(--accent));
+  background: var(--accent);
   color: var(--accent-foreground);
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.15) inset,
-    0 8px 24px -8px rgba(67, 48, 46, 0.45);
-  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 8px 20px -6px rgba(49, 61, 158, 0.5);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .btn-primary:hover {
-  transform: scale(1.01);
-  box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.2) inset,
-    0 10px 28px -8px rgba(67, 48, 46, 0.55);
+  transform: scale(1.02);
+  background: #252d7a;
+  box-shadow: 0 10px 24px -6px rgba(49, 61, 158, 0.6);
 }
 .btn-primary:disabled {
   opacity: 0.6;
@@ -127,21 +118,21 @@ body::before {
 
 .btn-secondary {
   border-radius: 9999px;
-  border: 1px solid rgba(67, 48, 46, 0.16);
-  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(49, 61, 158, 0.25);
+  background: #ffffff;
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
-  color: var(--foreground);
+  color: var(--accent);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 .btn-secondary:hover {
-  border-color: var(--pastel-blue);
+  border-color: var(--accent);
   background: rgba(193, 219, 232, 0.35);
 }
 
-/* Ombre gradient text for headlines. */
+/* All-blue ombre text for headlines - deep indigo through sky blue, no gray drift. */
 .gradient-text {
-  background: linear-gradient(100deg, #7a4a3a 0%, var(--burgundy) 35%, #5b6f7a 70%, #3f6478 100%);
+  background: linear-gradient(100deg, #1d2050 0%, #313d9e 40%, #4f7fae 75%, #8fc1e0 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -157,25 +148,25 @@ body::before {
   right: 1.25rem;
   height: 3px;
   border-radius: 0 0 3px 3px;
-  background: linear-gradient(90deg, var(--buttermilk), var(--pastel-blue), var(--burgundy));
+  background: linear-gradient(90deg, #8fc1e0, var(--accent), #1d2050);
 }
 
 .badge-gradient {
-  background: linear-gradient(120deg, var(--burgundy), #5b4340);
-  color: var(--buttermilk);
-  box-shadow: 0 4px 14px -6px rgba(67, 48, 46, 0.55);
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 14px -6px rgba(49, 61, 158, 0.55);
 }
 
 .progress-track {
   position: relative;
   height: 0.5rem;
   border-radius: 9999px;
-  background: rgba(67, 48, 46, 0.1);
+  background: rgba(49, 61, 158, 0.12);
   overflow: hidden;
 }
 .progress-fill {
   height: 100%;
   border-radius: 9999px;
-  background: linear-gradient(90deg, var(--pastel-blue), var(--burgundy));
+  background: linear-gradient(90deg, var(--pastel-blue), var(--accent));
   transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }

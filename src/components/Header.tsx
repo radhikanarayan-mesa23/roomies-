@@ -10,7 +10,7 @@ export function Header() {
         <nav>
           <Link
             href="/dashboard"
-            className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-sm text-foreground/90 transition-colors hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
+            className="rounded-full border border-border bg-white/40 px-4 py-1.5 text-sm text-foreground/90 transition-colors hover:border-pastel-blue hover:bg-pastel-blue/30"
           >
             Dashboard
           </Link>

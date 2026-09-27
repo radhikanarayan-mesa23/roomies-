@@ -66,6 +66,8 @@ export type Listing = {
   longitude: number | null;
   dedupe_hash: string;
   created_at: string;
+  interested_by: string[];
+  viewing_notes: string | null;
 };
 
 export type GivesUpItem = {

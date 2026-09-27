@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ThumbsUp, CalendarPlus, Check } from "lucide-react";
 import type { Listing } from "@/lib/types";
 import type { evaluateListing } from "@/lib/matching";
 import { Avatar } from "./Avatar";
 import { GapIcon, WORKS_ICON, NOT_CONFIRMED_ICON, GIVES_UP_ICON } from "@/lib/dealbreakerIcons";
+import { toggleInterest, updateViewingNotes } from "@/app/dashboard/actions";
 
 type Verdict = ReturnType<typeof evaluateListing>;
 
@@ -124,6 +126,96 @@ export function ListingCard({
           </div>
         ))}
       </div>
+
+      <InterestRow listing={listing} verdict={verdict} />
+      <ViewingNotes listing={listing} />
+    </div>
+  );
+}
+
+function InterestRow({ listing, verdict }: { listing: Listing; verdict: Verdict }) {
+  const [interested, setInterested] = useState(listing.interested_by);
+  const [, startTransition] = useTransition();
+
+  function toggle(participantId: string) {
+    setInterested((prev) =>
+      prev.includes(participantId) ? prev.filter((id) => id !== participantId) : [...prev, participantId]
+    );
+    startTransition(() => {
+      toggleInterest(listing.id, participantId);
+    });
+  }
+
+  return (
+    <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-border pt-4">
+      <span className="mr-1 text-xs text-muted">Interested:</span>
+      {verdict.perPerson.map((p) => {
+        const isIn = interested.includes(p.participantId);
+        return (
+          <button
+            key={p.participantId}
+            type="button"
+            onClick={() => toggle(p.participantId)}
+            className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs transition-all hover:scale-105 ${
+              isIn ? "border-emerald/40 bg-emerald/10 text-emerald" : "border-border text-muted"
+            }`}
+          >
+            <ThumbsUp size={12} className={isIn ? "fill-current" : ""} />
+            {p.participantName}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function ViewingNotes({ listing }: { listing: Listing }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(listing.viewing_notes ?? "");
+  const [saved, setSaved] = useState(listing.viewing_notes ?? "");
+  const [, startTransition] = useTransition();
+
+  function save() {
+    setSaved(value);
+    setEditing(false);
+    startTransition(() => {
+      updateViewingNotes(listing.id, value);
+    });
+  }
+
+  if (!editing) {
+    return (
+      <button
+        type="button"
+        onClick={() => setEditing(true)}
+        className="mt-3 flex w-full items-center gap-1.5 text-left text-xs text-muted hover:text-accent"
+      >
+        <CalendarPlus size={13} />
+        {saved ? (
+          <span>
+            Viewing: <span className="text-foreground">{saved}</span>
+          </span>
+        ) : (
+          "+ Add viewing dates"
+        )}
+      </button>
+    );
+  }
+
+  return (
+    <div className="mt-3 flex items-center gap-2">
+      <CalendarPlus size={13} className="shrink-0 text-muted" />
+      <input
+        autoFocus
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && save()}
+        placeholder="e.g. Sat 2-4pm"
+        className="input py-1 text-xs"
+      />
+      <button type="button" onClick={save} className="shrink-0 text-emerald">
+        <Check size={16} />
+      </button>
     </div>
   );
 }

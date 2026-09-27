@@ -40,6 +40,8 @@ function listing(overrides: Partial<Listing> = {}): Listing {
     longitude: 73.78,
     dedupe_hash: "hash-1",
     created_at: new Date().toISOString(),
+    interested_by: [],
+    viewing_notes: null,
     ...overrides,
   };
 }

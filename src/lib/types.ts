@@ -68,6 +68,7 @@ export type Listing = {
   created_at: string;
   interested_by: string[];
   viewing_notes: string | null;
+  is_finalized: boolean;
 };
 
 export type GivesUpItem = {

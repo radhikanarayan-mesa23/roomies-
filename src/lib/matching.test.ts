@@ -42,6 +42,7 @@ function listing(overrides: Partial<Listing> = {}): Listing {
     created_at: new Date().toISOString(),
     interested_by: [],
     viewing_notes: null,
+    is_finalized: false,
     ...overrides,
   };
 }

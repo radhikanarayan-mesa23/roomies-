@@ -39,3 +39,31 @@ export async function updateViewingNotes(listingId: string, notes: string) {
 
   revalidatePath("/dashboard");
 }
+
+/**
+ * A human action: the friends themselves click this to say "this is the
+ * one" - the app never computes or suggests a winner on its own. Only one
+ * listing can be finalized at a time, so finalizing a new one clears any
+ * previous pick.
+ */
+export async function finalizeListing(listingId: string) {
+  const db = supabaseAdmin();
+  const { error: clearError } = await db
+    .from("listings")
+    .update({ is_finalized: false })
+    .neq("id", listingId);
+  if (clearError) throw clearError;
+
+  const { error } = await db.from("listings").update({ is_finalized: true }).eq("id", listingId);
+  if (error) throw error;
+
+  revalidatePath("/dashboard");
+}
+
+export async function unfinalizeListing(listingId: string) {
+  const db = supabaseAdmin();
+  const { error } = await db.from("listings").update({ is_finalized: false }).eq("id", listingId);
+  if (error) throw error;
+
+  revalidatePath("/dashboard");
+}

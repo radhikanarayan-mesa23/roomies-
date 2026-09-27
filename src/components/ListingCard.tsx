@@ -3,12 +3,17 @@
 import { useRef, useState, useTransition } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ThumbsUp, CalendarPlus, Check } from "lucide-react";
+import { ThumbsUp, CalendarPlus, Check, PartyPopper, X } from "lucide-react";
 import type { Listing } from "@/lib/types";
 import type { evaluateListing } from "@/lib/matching";
 import { Avatar } from "./Avatar";
 import { GapIcon, WORKS_ICON, NOT_CONFIRMED_ICON, GIVES_UP_ICON } from "@/lib/dealbreakerIcons";
-import { toggleInterest, updateViewingNotes } from "@/app/dashboard/actions";
+import {
+  toggleInterest,
+  updateViewingNotes,
+  finalizeListing,
+  unfinalizeListing,
+} from "@/app/dashboard/actions";
 
 type Verdict = ReturnType<typeof evaluateListing>;
 
@@ -129,7 +134,50 @@ export function ListingCard({
 
       <InterestRow listing={listing} verdict={verdict} />
       <ViewingNotes listing={listing} />
+      <FinalizeControl listing={listing} />
     </div>
+  );
+}
+
+function FinalizeControl({ listing }: { listing: Listing }) {
+  const [finalized, setFinalized] = useState(listing.is_finalized);
+  const [, startTransition] = useTransition();
+
+  function finalize() {
+    setFinalized(true);
+    startTransition(() => {
+      finalizeListing(listing.id);
+    });
+  }
+
+  function undo() {
+    setFinalized(false);
+    startTransition(() => {
+      unfinalizeListing(listing.id);
+    });
+  }
+
+  if (finalized) {
+    return (
+      <div className="mt-3 flex items-center justify-between rounded-xl border border-emerald/30 bg-emerald/10 px-3 py-2 text-sm text-emerald">
+        <span className="flex items-center gap-1.5 font-medium">
+          <PartyPopper size={15} /> This is home!
+        </span>
+        <button type="button" onClick={undo} className="text-emerald/70 hover:text-emerald" title="Undo">
+          <X size={14} />
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={finalize}
+      className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-border py-2 text-xs font-medium text-muted transition-colors hover:border-accent hover:bg-accent/5 hover:text-accent"
+    >
+      <PartyPopper size={13} /> Finalize this one
+    </button>
   );
 }
 

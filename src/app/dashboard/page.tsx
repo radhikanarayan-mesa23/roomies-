@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { ReadinessProgress, AnimatedGrid, WaitingState } from "@/components/DashboardClient";
+import { RevealBanner } from "@/components/RevealBanner";
 import { buildBoard, getParticipants } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -26,11 +27,14 @@ export default async function DashboardPage() {
         {!board.ready ? (
           <WaitingState waitingOn={board.waitingOn} />
         ) : (
-          <AnimatedGrid
-            shortlistIds={board.shortlistIds}
-            verdicts={board.verdicts}
-            listingsById={board.listingsById}
-          />
+          <>
+            <RevealBanner verdicts={board.verdicts} listingsById={board.listingsById} />
+            <AnimatedGrid
+              shortlistIds={board.shortlistIds}
+              verdicts={board.verdicts}
+              listingsById={board.listingsById}
+            />
+          </>
         )}
       </main>
     </div>

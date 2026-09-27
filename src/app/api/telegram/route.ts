@@ -70,8 +70,16 @@ export async function POST(req: NextRequest) {
           `Hey ${participant.name}! Here's your dealbreakers form: ${baseUrl}/form/${participant.form_token}\n\nOnce you've filled it, just paste any listing here and I'll check it against everyone instantly.`
         );
       }
+      return NextResponse.json({ ok: true });
     }
-    // Unknown sender with no name match - ignore.
+
+    // Unknown sender, no name match - tell them what to do instead of
+    // silently dropping their message (this used to swallow listings
+    // pasted before linking, with zero feedback).
+    await sendTelegramMessage(
+      chatId,
+      "I don't recognize you yet — reply with your name (Riya, Meera, or Kavita) so I know whose dealbreakers this is. Then resend your listing and I'll check it."
+    );
     return NextResponse.json({ ok: true });
   }
 

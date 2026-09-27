@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { Avatar } from "@/components/Avatar";
+import { getParticipants } from "@/lib/data";
+import { ArrowRight } from "lucide-react";
 
 const STEPS = [
   {
-    title: "Set your dealbreakers once",
-    body: "Each of you fills a private form with max rent, no-go areas, floor limits, and what matters to you. Fill it once — edit anytime.",
+    title: "Pick your name below",
+    body: "Fill your private dealbreakers form once — max rent, no-go areas, floor limits, and what matters to you. Edit anytime.",
   },
   {
     title: "Share a listing",
@@ -16,7 +19,11 @@ const STEPS = [
   },
 ];
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const participants = await getParticipants();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -33,14 +40,36 @@ export default function Home() {
           listing against everyone&rsquo;s dealbreakers up front — with the exact numbers —
           so you decide, not a chat scroll.
         </p>
-        <Link
-          href="/dashboard"
-          className="btn-primary mt-8 hover:scale-[1.03]"
-        >
-          View dashboard →
+
+        <div className="mt-10 w-full max-w-md">
+          <p className="mb-3 text-sm font-medium text-muted">👋 Who&rsquo;s this?</p>
+          <div className="space-y-2">
+            {participants.map((p) => (
+              <Link
+                key={p.id}
+                href={`/form/${p.form_token}`}
+                className="glass-card group flex items-center justify-between px-4 py-3 text-left transition-transform hover:-translate-y-0.5"
+              >
+                <span className="flex items-center gap-3">
+                  <Avatar name={p.name} size={32} />
+                  <span className="font-medium">{p.name}</span>
+                  {p.form_submitted_at && (
+                    <span className="rounded-full bg-emerald/10 px-2 py-0.5 text-xs text-emerald">
+                      ✓ submitted
+                    </span>
+                  )}
+                </span>
+                <ArrowRight size={16} className="text-muted transition-transform group-hover:translate-x-1" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <Link href="/dashboard" className="btn-secondary mt-6 text-sm">
+          Or jump straight to the dashboard →
         </Link>
 
-        <div className="mt-24 grid w-full gap-4 text-left sm:grid-cols-3">
+        <div className="mt-20 grid w-full gap-4 text-left sm:grid-cols-3">
           {STEPS.map((step, i) => (
             <div
               key={step.title}

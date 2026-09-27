@@ -18,7 +18,7 @@ export default async function AddPage({
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
         {!authorized ? (
           <div className="glass-card p-8 text-center">
-            <h1 className="text-lg font-semibold">Not authorized</h1>
+            <h1 className="font-display text-xl font-medium">Not authorized</h1>
             <p className="mt-2 text-sm text-muted">
               This page needs a valid <code className="text-accent">?key=</code> in the URL.
             </p>

@@ -123,7 +123,7 @@ export function FormClient({
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald/15 text-emerald">
           ✓
         </div>
-        <h1 className="text-lg font-semibold">Thanks, {name} — you&rsquo;re set.</h1>
+        <h1 className="font-display text-xl font-medium">Thanks, {name} — you&rsquo;re set.</h1>
         <p className="mt-2 text-sm text-muted">
           Your dealbreakers are saved. Share a listing to the bot anytime, and check the{" "}
           <a href="/dashboard" className="text-accent underline underline-offset-4">
@@ -144,7 +144,7 @@ export function FormClient({
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Hey {name} 👋</h1>
+        <h1 className="font-display text-3xl font-medium tracking-tight">Hey {name} 👋</h1>
         <p className="mt-1 text-sm text-muted">
           Set your dealbreakers once. You can edit these anytime — Roomiess re-checks every
           listing against the latest version.

@@ -9,7 +9,7 @@ import type { evaluateListing } from "@/lib/matching";
 type Verdict = ReturnType<typeof evaluateListing>;
 
 function fitBadge(zeroCount: number) {
-  if (zeroCount === 3) return { text: "Works for all 3", cls: "bg-emerald/15 text-emerald" };
+  if (zeroCount === 3) return { text: "✨ Works for all 3", cls: "badge-gradient" };
   if (zeroCount === 2) return { text: "Works for 2 of 3", cls: "bg-amber/15 text-amber" };
   if (zeroCount === 1) return { text: "Works for 1 of 3", cls: "bg-rose/15 text-rose" };
   return { text: "Works for none yet", cls: "bg-rose/15 text-rose" };
@@ -48,15 +48,19 @@ export function ListingCard({
 
   return (
     <div
-      className={`listing-card glass-card p-5 ${large ? "sm:p-6" : ""}`}
+      className={`listing-card glass-card p-5 ${large ? "card-ribbon sm:p-6" : ""}`}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h3 className={`font-semibold tracking-tight ${large ? "text-lg" : "text-base"}`}>
+          <h3
+            className={`font-display font-medium tracking-tight ${large ? "text-xl" : "text-lg"}`}
+          >
             {s.normalized_locality ?? s.location ?? "Locality not confirmed"}
           </h3>
           <p className="mt-0.5 text-sm text-muted">
-            {s.monthly_rent != null ? `₹${s.monthly_rent.toLocaleString("en-IN")}/mo` : "Rent not confirmed"}
+            <span className="font-mono">
+              {s.monthly_rent != null ? `₹${s.monthly_rent.toLocaleString("en-IN")}/mo` : "Rent not confirmed"}
+            </span>
             {s.floor_number != null ? ` · Floor ${s.floor_number}` : ""}
             <span className="ml-1.5 text-xs">(equal 3-way split)</span>
           </p>
@@ -73,7 +77,7 @@ export function ListingCard({
           <div key={p.participantId} className="pt-3 first:pt-0">
             <div className="flex items-center gap-2 text-sm">
               <span className="w-16 shrink-0 font-medium">{p.participantName}</span>
-              <span className="w-10 shrink-0 text-muted">
+              <span className="w-10 shrink-0 font-mono text-muted">
                 {p.score != null ? (
                   <>
                     <ScoreNumber value={p.score} />/5

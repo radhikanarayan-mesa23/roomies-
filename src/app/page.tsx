@@ -21,8 +21,11 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-6 py-20 text-center sm:py-28">
-        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-          Roomiess — decide together,
+        <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-border bg-white/40 px-3 py-1 text-xs font-medium text-muted">
+          🏠 four months of scrolling, zero flats found
+        </span>
+        <h1 className="gradient-text font-display text-balance text-5xl font-medium tracking-tight sm:text-6xl">
+          decide together,
           <br className="hidden sm:block" /> not one objection at a time
         </h1>
         <p className="mt-5 max-w-xl text-pretty text-base text-muted sm:text-lg">
@@ -32,9 +35,9 @@ export default function Home() {
         </p>
         <Link
           href="/dashboard"
-          className="mt-8 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03]"
+          className="btn-primary mt-8 hover:scale-[1.03]"
         >
-          View dashboard
+          View dashboard →
         </Link>
 
         <div className="mt-24 grid w-full gap-4 text-left sm:grid-cols-3">

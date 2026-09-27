@@ -4,7 +4,7 @@ export function Header() {
   return (
     <header className="glass-header sticky top-0 z-50">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-sm font-semibold tracking-tight">
+        <Link href="/" className="font-display text-lg font-medium tracking-tight">
           Roomiess
         </Link>
         <nav>

@@ -34,6 +34,7 @@
   --color-zinc: var(--zinc);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
 }
 
 html {
@@ -136,4 +137,45 @@ body::before {
 .btn-secondary:hover {
   border-color: var(--pastel-blue);
   background: rgba(193, 219, 232, 0.35);
+}
+
+/* Ombre gradient text for headlines. */
+.gradient-text {
+  background: linear-gradient(100deg, #7a4a3a 0%, var(--burgundy) 35%, #5b6f7a 70%, #3f6478 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Thin gradient ribbon along the top edge of a card, for the shortlist. */
+.card-ribbon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, var(--buttermilk), var(--pastel-blue), var(--burgundy));
+}
+
+.badge-gradient {
+  background: linear-gradient(120deg, var(--burgundy), #5b4340);
+  color: var(--buttermilk);
+  box-shadow: 0 4px 14px -6px rgba(67, 48, 46, 0.55);
+}
+
+.progress-track {
+  position: relative;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(67, 48, 46, 0.1);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--pastel-blue), var(--burgundy));
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }

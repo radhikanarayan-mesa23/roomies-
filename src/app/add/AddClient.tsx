@@ -50,7 +50,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
   if (stage.step === "saved") {
     return (
       <div className="glass-card p-8 text-center">
-        <h1 className="text-lg font-semibold">Saved ✓</h1>
+        <h1 className="font-display text-xl font-medium">Saved ✓</h1>
         <p className="mt-2 text-sm text-muted">
           It&apos;ll show up on the{" "}
           <a href="/dashboard" className="text-accent underline underline-offset-4">
@@ -75,7 +75,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
   if (stage.step === "duplicate") {
     return (
       <div className="glass-card p-8 text-center">
-        <h1 className="text-lg font-semibold">Already added</h1>
+        <h1 className="font-display text-xl font-medium">Already added</h1>
         <p className="mt-2 text-sm text-muted">
           This exact listing text is already on the dashboard.
         </p>
@@ -90,7 +90,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
     const s = stage.structured;
     return (
       <div className="space-y-6">
-        <h1 className="text-xl font-semibold">Review before saving</h1>
+        <h1 className="font-display text-2xl font-medium">Review before saving</h1>
         <div className="glass-card p-5">
           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
             <PreviewField label="Locality" value={s.normalized_locality} missing={stage.missingFields.includes("normalized locality")} />
@@ -133,7 +133,7 @@ export function AddClient({ participants }: { participants: Participant[] }) {
   return (
     <form onSubmit={handleExtract} className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">Add a listing</h1>
+        <h1 className="font-display text-2xl font-medium">Add a listing</h1>
         <p className="mt-1 text-sm text-muted">
           Paste the listing text. Gemini extracts the facts — nothing is guessed.
         </p>
